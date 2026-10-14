@@ -1,0 +1,50 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "启动 FastAPI",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "api:app",
+                "--app-dir",
+                "${workspaceFolder}/src",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8000",
+                "--reload"
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/.venv/Lib/site-packages;${env:PYTHONPATH}"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "启动 Streamlit",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "${workspaceFolder}/src/web_app.py",
+                "--browser.gatherUsageStats=false"
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/.venv/Lib/site-packages;${env:PYTHONPATH}"
+            },
+            "console": "integratedTerminal"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "启动完整 RAG Web",
+            "configurations": [
+                "启动 FastAPI",
+                "启动 Streamlit"
+            ],
+            "stopAll": true
+        }
+    ]
+}
